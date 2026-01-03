@@ -1,0 +1,16 @@
+
+License issues
+
+Intent is for this code to be BSD licensed
+
+ in linking against libraries
+  libTIFF is BSD compatible
+  libJPEG (IJG, at least to 6b) is BSD compatible
+  libPNG is BSD compatible
+  libWebP is BSD
+
+ using simple source code for
+  X BitMap
+  NetPBM
+
+

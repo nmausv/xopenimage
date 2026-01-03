@@ -1,0 +1,143 @@
+\" xopenimage.1 documentation in mdoc format
+\" 2025 Douglas Maus
+.Dd
+.Dt XOPENIMAGE 1
+.Os
+.Sh NAME
+.Nm xopenimage
+.Nd open raster image files and display on X11
+.Sh SYNOPSIS
+.Nm
+.Op global_options
+.Op image_options
+imagefilename
+.Sh DESCRIPTION
+Open raster image files in supported formats, including 
+XBitmap (.xbm), NetPBM (.pbm/.pgm/.ppm), TIFF (.tiff), 
+JPEG (.jpeg), PNG (.png), WebP (.webp), 
+and display image in X11 window.
+.Pp
+Requires an X11 server with TrueColor 24 bit capability.
+.Pp
+GLOBAL OPTIONS
+.Pp
+The following options affect the global operation of
+.Nm .
+They may be specified anywhere on the command line. Additionally
+the -global option can be used to force an image option to apply
+to all images.
+.Bl -tag -width Ds
+.It Fl display Ar display_name
+X11 display name to send the image(s) to.
+.It Fl fork
+Fork
+.Nm .
+This causes
+.Nm 
+to disassociate itself from the shell. This option automatically
+turns on -quiet.
+.It Fl fullscreen
+Use the entire screen to display images.
+.It Fl geometry Ar WxH+-X+-Y
+This sets the size of the window onto which the images are loaded to
+a different value than the size of the image. When viewing an image in
+a window, this can be used to reduce the size of the destination window.
+.It Fl help Ar option
+Give information on an option or list of options. If no option is given,
+a simple interactive help facility is invoked.
+.It Fl quiet
+Forces
+.Nm
+to be quiet.
+.It Fl supported
+List the supported image types.
+.It Fl verbose
+Causes
+.Nm
+to be talkative, telling you what kind of image
+it is opening, and any special processing that it has to do.
+This is the default for
+.Nm .
+.It Fl version
+Print the version number of
+.Nm
+.El
+.Pp
+IMAGE OPTIONS
+.Pp
+The following options may precede each image.
+These options are local to the image they precede.
+.Bl -tag -width Ds
+.It Fl background Ar color
+BITMAP ONLY. Set the color for the background.
+The argument color can be a string, such as "black".
+The argument is passed to XAllocNamedColor, so can be any
+string that is recognized by that function.
+Can use hex codes, such as "#FF0000" for a red color.
+The default is "white".
+.It Fl foreground Ar color
+BITMAP ONLY. Set the color for the foreground.
+Allowed argument color strings same as for background.
+The default is "black".
+.It Fl format Ar format_id
+xbm, tiff, pbm, jpeg, png, webp
+.It Fl gamma Ar display_gamma
+.It Fl global
+.It Fl goto
+.It Fl invert
+BITMAP ONLY. Inverts the colors, so background is black,
+foreground is white.
+.It Fl name Ar image_name
+.It Fl rotate Ar degrees
+.It Fl shrink
+.It Fl title Ar title
+.It Fl xzoom Ar percentage
+Zoom along the horizontal x-axis. Integers only.
+.It Fl yzoom Ar percentage
+Zoom along the vertical y-axis. Integers only.
+.It Fl zoom Ar percentage
+Zoom both x and y axis, maintaining aspect ratio.
+Integers only.
+.El
+.Pp
+.Sh INTERACTION
+.Pp
+While an image is being displayed, can interactively change
+the zoom.
+.Bl -tag -width Ds
+.It  '>'
+(shift+'.') Increase zoom by 200% (double the size)
+.It  '<'
+(shift+',') Decrease zoom by 50% (halve the size).
+.El 
+.Pp
+Increasing zoom (200%) is "pixellating" - simply converts 1 pixel
+to 2 x 2 block of same color.
+Reducing zoom (50%) is done by pixel averaging (pixel mixing).
+Sequence of zoom in (200%), then zoom out (50%) yields original.
+Sequence of zoom out (50%), then zoom in (200%) pixellates the image. 
+.Pp
+Multiple images
+.Pp
+If multiple image files are sequentially entered on the command line,
+user can advance to next image or return to previous.
+.Bl -tag -width Ds
+.It  'n'
+Next image. If the command line has reached the last imagefile,
+this will end the display, quitting the program.
+.It  'p'
+Previous image (if not first)
+.It  'space'
+Same as 'n' - next image
+.El
+.Pp
+Stopping display
+.Pp
+Entering 'q' will quit. This will quit, even if there are remaining
+files from the command line.
+.Pp
+.Sh RESOURCE CLASS
+.Nm
+uses the resource class name Xopenimage for window
+managers which need this resource set.
+

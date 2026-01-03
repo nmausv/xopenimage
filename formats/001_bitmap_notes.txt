@@ -1,0 +1,27 @@
+bitmap formats
+depth of 1
+
+			left			background		foreground
+
+X11 (.xbm)		least-sig-bit		0 = white		1 = black
+
+
+NetPBM (.pbm)		
+ ASCII P1		literal left-to-right	'0' = white		'1' = black
+ binary P4		most-sig-bit		0 = white		1 = black
+
+ binary PBM requires bit-order reversal
+
+
+TIFF			most-sig-bit
+ miniswhite					0 = white		1 = black
+ minisblack					1 = white		0 = black
+
+ TIFF requires bit-order reversal,
+  AND if minisblack, then bitwise complement (~)
+
+PNG			most-sig-bit		1 = white		0 = black
+
+ PNG requires bit-order reversal AND bitwise complement (~)
+
+
